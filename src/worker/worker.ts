@@ -14,7 +14,7 @@ type Options = SaveOptions & {
 async function worker(options: Options) {
   const log = Logger(options.debug, options.silent);
 
-  log.debug('Job started:', options.url);
+  log.info('Job started:', options.url);
   const res = await save(options.url, options);
 
   if (!res) {

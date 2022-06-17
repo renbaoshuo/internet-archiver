@@ -2,12 +2,13 @@
   "name": "internet-archiver",
   "version": "0.0.3",
   "description": "An Internet Archive Client.",
-  "main": "dist/index.js",
+  "main": "./index.js",
   "files": [
+    "bin/**/*",
     "dist/**/*"
   ],
   "bin": {
-    "internet-archiver": "dist/index.js"
+    "internet-archiver": "bin/index.js"
   },
   "scripts": {
     "clean": "rm -r dist",
