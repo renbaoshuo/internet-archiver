@@ -59,6 +59,7 @@ async function worker(options: Options) {
 
 parentPort?.on('message', async (options: Options) => {
   await worker(options);
+  await wait(2000);
 
   parentPort?.postMessage('Done.');
 });
