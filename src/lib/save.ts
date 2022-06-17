@@ -84,7 +84,7 @@ export default async function save(
       body: params,
     });
 
-    if (!res.ok) {
+    if (!res.ok || res.url === 'https://web.archive.org/429.html') {
       log.e(res.statusText);
       return null;
     }

@@ -44,7 +44,7 @@ export default async function status(
       },
     });
 
-    if (!res.ok) {
+    if (!res.ok || res.url === 'https://web.archive.org/429.html') {
       log.error(res.statusText);
       log.error(res);
       return null;

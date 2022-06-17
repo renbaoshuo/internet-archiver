@@ -13,19 +13,29 @@ type Options = SaveOptions & {
 
 async function worker(options: Options) {
   const log = Logger(options.debug, options.silent);
+  let res = null;
+  let retryCount = 0;
 
-  log.info('Job started:', options.url);
-  const res = await save(options.url, options);
+  while (true) {
+    log.info('Job started:', options.url);
+    res = await save(options.url, options);
 
-  if (!res) {
-    log.error('Failed to save URL:', options.url);
+    if (!res) {
+      log.error('Failed to save URL:', options.url);
 
-    return;
+      if (++retryCount > 5) return;
+
+      log.debug('Retrying...', `(${retryCount}/5)`);
+      await wait(10000);
+    } else {
+      break;
+    }
   }
 
   const jobId = res.job_id;
   log.debug('Job ID:', jobId);
 
+  retryCount = 0;
   // Wait for job to finish
   while (true) {
     // Check if job is finished
@@ -44,7 +54,10 @@ async function worker(options: Options) {
           '(' + statusRes?.status_ext + ')'
         );
 
-        break;
+        if (++retryCount > 5) break;
+
+        log.debug('Retrying...', `(${retryCount}/5)`);
+        await wait(10000);
       }
 
       log.debug('Wait for job to finish...', statusRes.status);
@@ -52,7 +65,10 @@ async function worker(options: Options) {
     } else {
       log.error('Failed to get status of job:', jobId);
 
-      break;
+      if (++retryCount > 5) break;
+
+      log.debug('Retrying...', `(${retryCount}/5)`);
+      await wait(10000);
     }
   }
 }
