@@ -1,0 +1,27 @@
+{
+  "name": "internet-archiver",
+  "version": "0.0.0",
+  "description": "An Internet Archive Client.",
+  "main": "index.js",
+  "bin": {
+    "internet-archiver": "index.js"
+  },
+  "scripts": {
+    "archive": "./index.js"
+  },
+  "repository": "https://github.com/renbaoshuo/internet-archiver.git",
+  "author": "Baoshuo <i@baoshuo.ren>",
+  "license": "MIT",
+  "devDependencies": {
+    "@swc-node/register": "^1.5.1",
+    "@types/hexo-log": "^0.2.3",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^18.0.0",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "hexo-log": "^3.0.0",
+    "minimist": "^1.2.6",
+    "node-fetch": "2"
+  }
+}
