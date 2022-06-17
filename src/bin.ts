@@ -33,6 +33,13 @@ async function main() {
         accessSecret,
         debug: argv.debug,
         silent: argv.silent,
+
+        all: argv.all,
+        outlinks: argv.outlinks,
+        screenshot: argv.screenshot,
+        delayWbAvailability: argv['delay-wb-availability'],
+        forceGet: argv['force-get'],
+        skipFirstArchive: argv['skip-first-archive'],
       });
     })
   ).then(() => pool.destroy());
