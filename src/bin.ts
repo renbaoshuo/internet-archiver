@@ -19,7 +19,7 @@ async function main() {
     process.exit(1);
   }
 
-  const pool = new WorkerPool(path.join(__dirname, 'worker.js'), 6);
+  const pool = new WorkerPool(path.join(__dirname, 'worker'), 6);
   const urls = await fs
     .readFile(file, 'utf8')
     .then((data) => data.split('\n'))

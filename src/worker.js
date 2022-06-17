@@ -1,2 +1,2 @@
 require('@swc-node/register');
-require('./worker/index');
+require('./worker/worker');
