@@ -34,21 +34,26 @@ export default async function status(
 
   log.debug('Checking status of job:', job_id);
   const url = `https://web.archive.org/save/status/${job_id}`;
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `LOW ${options.accessKey}:${options.accessSecret}`,
-      Accept: 'application/json',
-    },
-  });
 
-  if (!res.ok) {
-    log.error(res.statusText);
-    log.error(res);
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `LOW ${options.accessKey}:${options.accessSecret}`,
+        Accept: 'application/json',
+      },
+    });
+
+    if (!res.ok) {
+      log.error(res.statusText);
+      log.error(res);
+      return null;
+    }
+
+    return (await res.json()) as StatusResponse;
+  } catch (e) {
+    log.error(e);
+
     return null;
   }
-
-  const data = (await res.json()) as StatusResponse;
-
-  return data;
 }

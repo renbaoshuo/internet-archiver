@@ -14,7 +14,8 @@
     "clean": "rm -r dist",
     "build:main": "ncc build src/bin.ts -m -o dist",
     "build:worker": "ncc build src/worker/worker.ts -m -o dist/worker",
-    "build": "yarn clean && yarn build:main && yarn build:worker"
+    "build": "yarn clean && yarn build:main && yarn build:worker",
+    "prepublishOnly": "yarn build"
   },
   "repository": "https://github.com/renbaoshuo/internet-archiver.git",
   "author": "Baoshuo <i@baoshuo.ren>",

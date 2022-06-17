@@ -74,25 +74,25 @@ export default async function save(
   params.append('force_get', options.forceGet ? '1' : '0');
   params.append('skip_first_archive', options.skipFirstArchive ? '1' : '0');
 
-  const res = await fetch('https://web.archive.org/save', {
-    method: 'POST',
-    headers: {
-      Authorization: `LOW ${options.accessKey}:${options.accessSecret}`,
-      Accept: 'application/json',
-    },
-    body: params,
-  });
-
-  if (!res.ok) {
-    log.e(res.statusText);
-    return null;
-  }
-
-  const data = (await res.text()) as string;
-
   try {
-    return JSON.parse(data) as SaveResponse;
-  } catch {
+    const res = await fetch('https://web.archive.org/save', {
+      method: 'POST',
+      headers: {
+        Authorization: `LOW ${options.accessKey}:${options.accessSecret}`,
+        Accept: 'application/json',
+      },
+      body: params,
+    });
+
+    if (!res.ok) {
+      log.e(res.statusText);
+      return null;
+    }
+
+    return (await res.json()) as SaveResponse;
+  } catch (e) {
+    log.error(e);
+
     return null;
   }
 }
