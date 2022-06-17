@@ -1,6 +1,6 @@
 {
   "name": "internet-archiver",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "An Internet Archive Client.",
   "main": "./index.js",
   "files": [
@@ -11,7 +11,7 @@
     "internet-archiver": "bin/index.js"
   },
   "scripts": {
-    "clean": "rm -r dist",
+    "clean": "rm -rf dist",
     "build:main": "ncc build src/bin.ts -m -o dist",
     "build:worker": "ncc build src/worker/worker.ts -m -o dist/worker",
     "build": "yarn clean && yarn build:main && yarn build:worker",
