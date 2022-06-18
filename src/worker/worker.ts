@@ -36,6 +36,7 @@ async function worker(options: Options) {
   log.debug('Job ID:', jobId);
 
   retryCount = 0;
+  let checkCount = 0;
   // Wait for job to finish
   while (true) {
     // Check if job is finished
@@ -58,6 +59,11 @@ async function worker(options: Options) {
 
         log.debug('Retrying...', `(${retryCount}/5)`);
         await wait(10000);
+      }
+
+      if (++checkCount > 20) {
+        log.error('Job failed (timeout):', options.url);
+        break;
       }
 
       log.debug('Wait for job to finish...', statusRes.status);
