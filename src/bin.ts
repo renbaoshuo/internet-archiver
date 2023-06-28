@@ -7,7 +7,12 @@ import Logger from './utils/log';
 const log = Logger(argv.debug, argv.silent);
 
 async function main() {
-  const { 'access-key': accessKey, 'access-secret': accessSecret, file } = argv;
+  const {
+    'access-key': accessKey,
+    'access-secret': accessSecret,
+    file,
+    workers,
+  } = argv;
 
   if (!accessKey || !accessSecret) {
     log.error('Access key and secret are required.');
@@ -19,7 +24,10 @@ async function main() {
     process.exit(1);
   }
 
-  const pool = new WorkerPool(path.join(__dirname, 'worker'), 6);
+  const pool = new WorkerPool(
+    path.join(__dirname, 'worker'),
+    parseInt(workers) || 6
+  );
   const urls = await fs
     .readFile(file, 'utf8')
     .then((data) => data.split('\n'))
