@@ -1,6 +1,6 @@
 {
   "name": "internet-archiver",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "An Internet Archive Client.",
   "main": "./index.js",
   "files": [
